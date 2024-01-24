@@ -1,4 +1,4 @@
-# ROS1-differential-wheeled-robot
+# ROS1 differential wheeled robot
 Project of differential wheeled mobile robot implemented in Robot Operating System. Allows user to create a map of a world in Gazebo with usage of 'gmapping' package. User can controll robot by keyboard with usage of 'teleop_twist_keyboard package' or rely on its autonomous navigation provided by 'navigation' metpackage.
 
 Repository contains:
