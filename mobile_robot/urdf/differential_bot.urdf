@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<robot name="differential_bot">
+
+    <!-- Base frame -->
+    <link name="baza">
+        <visual>
+            <geometry>
+                <box size="0.2 0.3 0.1"/>
+            </geometry>
+            <material name="orange">
+                <color rgba="0.95 0.4 0.05 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.2 0.3 0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1"/>
+            <inertia ixx="0.00417" ixy="0.0" ixz="0.0" iyy="0.0108" iyz="0.0" izz="0.00833"/>
+        </inertial>
+    </link>
+
+    <!-- Base frame front shoulder -->
+    <link name="zaok_p">
+        <visual>
+            <geometry>
+                <cylinder radius="0.15" length="0.1"/>
+            </geometry>
+            <material name="orange">
+                <color rgba="0.95 0.4 0.05 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.00323" ixy="0.0" ixz="0.0" iyy="0.00323" iyz="0.0" izz="0.005625"/>
+        </inertial>
+    </link>
+
+    <!-- Fixed base joint (front)-->
+    <joint name="baza_zaokp_wiez" type="fixed">
+        <parent link="baza"/>
+        <child link="zaok_p"/>
+        <origin xyz="0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+    
+    <!-- Base frame back shoulder -->
+    <link name="zaok_t">
+        <visual>
+            <geometry>
+                <cylinder radius="0.15" length="0.1"/>
+            </geometry>
+            <material name="orange">
+                <color rgba="0.95 0.4 0.05 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.00323" ixy="0.0" ixz="0.0" iyy="0.00323" iyz="0.0" izz="0.005625"/>
+        </inertial>
+    </link>
+
+    <!-- Fixed base joint (back) -->
+    <joint name="baza_zaokt_wiez" type="fixed">
+        <parent link="baza"/>
+        <child link="zaok_t"/>
+        <origin xyz="-0.1 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <!-- Right wheel (steered) -->
+    <link name="kolo_prawe">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <material name="yellow">
+                <color rgba="0.95 0.6 0.0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.00135" ixy="0.0" ixz="0.0" iyy="0.00135" iyz="0.0" izz="0.0025"/>        
+        </inertial>            
+    </link> 
+
+    <!-- Continuous steered wheel joint (right)  -->
+    <joint name="baza_kolop_wiez" type="continuous">
+        <parent link="baza"/>
+        <child link="kolo_prawe"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="-0.0 -0.175 -0.0" rpy="-1.5708 0.0 0.0"/>
+    </joint>
+
+    <!-- Left wheel (steered) -->
+    <link name="kolo_lewe">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <material name="yellow">
+                <color rgba="0.95 0.6 0.0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.00135" ixy="0.0" ixz="0.0" iyy="0.00135" iyz="0.0" izz="0.0025"/>        
+        </inertial>            
+    </link> 
+
+    <!-- Continuous steered wheel joint (left) -->
+    <joint name="baza_kolol_wiez" type="continuous">
+        <parent link="baza"/>
+        <child link="kolo_lewe"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="-0.0 0.175 -0.0" rpy="-1.5708 0.0 0.0"/>
+    </joint>
+
+    <!-- Front wheel (passive) -->
+    <link name="kolo_przednie">
+        <visual>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <material name="violet">
+                <color rgba="0.7 0.0 0.3 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.25"/>
+            <inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.00025"/>        
+        </inertial>            
+    </link> 
+
+    <!-- Continuous passive wheel joint (front) -->
+    <joint name="zaokp_kolop_wiez" type="continuous">
+        <parent link="zaok_p"/>
+        <child link="kolo_przednie"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0.075 0.0 -0.05" rpy="0.0 0.0 0.0"/>
+    </joint>
+    
+
+    <!-- Back wheel (passive) -->
+    <link name="kolo_tylne">
+        <visual>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <material name="violet">
+                <color rgba="0.7 0.0 0.3 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.25"/>
+            <inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.00025"/> 
+        </inertial>            
+    </link> 
+
+    <!-- Continuous passive wheel joint (back) -->
+    <joint name="zaokt_kolot_wiez" type="continuous">
+        <parent link="zaok_t"/>
+        <child link="kolo_tylne"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="-0.075 0.0 -0.05" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    
+    <!-- Distance sensor -->
+    <link name="czujnik_odleglosci">
+        <visual>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0.15 0.7 0.15 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <inertia ixx="0.0000017" ixy="0" ixz="0.0" iyy="0.0000017" iyz="0.0" izz="0.0000017"/>
+        </inertial>
+    </link>
+
+    <!-- Fixed sensor joint -->
+    <joint name="baza_czujnik_wiez" type="fixed">
+        <axis xyz="0.0 1 0.0"/>
+        <parent link="baza"/>
+        <child link="czujnik_odleglosci"/>
+        <origin xyz="0.1 0.0 0.08" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <!-- Distance sensor plugin -->
+    <gazebo reference="czujnik_odleglosci">
+        <sensor type="ray" name="laser">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>true</visualize>
+            <update_rate>40</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.578</min_angle>
+                        <max_angle>1.578</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.1</min>
+                    <max>8</max>
+                    <resolution>0.1</resolution>
+                </range>
+            </ray>
+            <plugin name="czujnik" filename="libgazebo_ros_laser.so">
+                <topicName>/scan</topicName>
+                <frameName>czujnik_odleglosci</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>    
+
+    <!-- Differential drive plugin -->
+    <gazebo>
+        <plugin name="diff_bot_controller"   filename="libgazebo_ros_diff_drive.so">
+            <leftJoint>baza_kolol_wiez</leftJoint>
+            <rightJoint>baza_kolop_wiez</rightJoint>
+            <legacyMode>false</legacyMode>
+            <robotBaseFrame>baza</robotBaseFrame>
+            <wheelSeparation>0.35</wheelSeparation>
+            <wheelDiameter>0.2</wheelDiameter>
+            
+        </plugin>
+    </gazebo>
+
+    <!-- Gazebo Colors -->
+    <gazebo reference="baza">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <gazebo reference="zaok_p">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <gazebo reference="zaok_t">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <gazebo reference="kolo_prawe">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+    <gazebo reference="kolo_lewe">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+    <gazebo reference="kolo_przednie">
+        <material>Gazebo/Purple</material>
+    </gazebo>
+    <gazebo reference="kolo_tylne">
+        <material>Gazebo/Purple</material>
+    </gazebo>
+    <gazebo reference="czujnik_odleglosci">
+        <material>Gazebo/Green</material>
+    </gazebo>
+</robot>

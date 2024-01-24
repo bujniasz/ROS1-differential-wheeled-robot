@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- file path -->
+    <param name="robot_description" textfile="$(find mobile_robot)/urdf/differential_bot.urdf"/>
+
+    <!-- Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"  args="-param robot_description -urdf -model differential_bot"/>
+
+    <!-- RViz -->
+    <node name="Rsp" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+    <node name="Jsp" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/>
+    <node name="RViz" pkg="rviz" type="rviz" output="screen"/>
+    
+    <!-- Mapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
+        <param name="base_frame" value="baza" />
+    </node>
+
+    <!-- Autonomous navigation -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find mobile_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+        <rosparam file="$(find mobile_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find mobile_robot)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find mobile_robot)/config/global_costmap_params.yaml" command="load" /> 
+        <rosparam file="$(find mobile_robot)/config/base_local_planner_params.yaml" command="load" />
+     </node>
+    
+</launch>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- file path -->
+    <param name="robot_description" textfile="$(find mobile_robot)/urdf/differential_bot.urdf"/>
+
+    <!-- start RViz-->
+    <node name="RViz" pkg="rviz" type="rviz" output="screen"/>
+
+    <!--  display of all robot links-->
+    <node name="Rsp" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+    <!-- verification of robot's joints --> 
+    <node name="Jsp" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/>
+
+</launch>

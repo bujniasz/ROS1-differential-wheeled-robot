@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- file path -->
+    <param name="robot_description" textfile="$(find mobile_robot)/urdf/differential_bot.urdf"/>
+
+    <!-- map Gazebo-->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+    <!-- upload of a robot-->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"  args="-param robot_description -urdf -model differential_bot"/>
+
+    <!--  display of all robot links-->
+    <node name="Rsp" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+</launch>
