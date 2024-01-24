@@ -5,7 +5,7 @@ Repository contains:
 - 'urdf' folder with an URDF file of robot's model,
 - 'launch' folder with LAUNCH files for easier work with ROS components,
 - 'config' folder with YAML files configurating robot's autonomous naviagation
-- 'world' folder with two, ready to use world in Gazebo.
+- 'world' folder with two, ready to use in Gazebo, worlds.
 
 If you want to use code provided in this repository, make sure to change all file paths included in the attached files.
 
